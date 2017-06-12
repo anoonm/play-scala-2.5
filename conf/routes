@@ -1,1 +1,4 @@
 GET     /                           controllers.HomeController.index
+
+
+GET     /rates                      controllers.ExchangeRateController.getRates(base: Option[String], target:Option[String])
