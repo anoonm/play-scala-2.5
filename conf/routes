@@ -41,3 +41,5 @@ GET     /rates                      controllers.ExchangeRateController.getRates(
 GET   /docs/swagger.json            controllers.Admin.specs
 
 GET   /docs/swagger-ui/*file        controllers.Assets.at(path:String="/public/lib/swagger-ui", file:String)
+
+POST /api/hooks                     controllers.WebHookController.createSubscription
