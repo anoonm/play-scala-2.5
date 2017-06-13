@@ -42,4 +42,6 @@ GET   /docs/swagger.json            controllers.Admin.specs
 
 GET   /docs/swagger-ui/*file        controllers.Assets.at(path:String="/public/lib/swagger-ui", file:String)
 
+GET   /swaggerui                    controllers.Default.redirect(to ="/docs/swagger-ui/index.html?url=/docs/swagger.json" )
+
 POST /api/hooks                     controllers.WebHookController.createSubscription
