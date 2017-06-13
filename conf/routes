@@ -1,4 +1,43 @@
 GET     /                           controllers.HomeController.index
 
-
+###
+# summary: Get product info for a given list of product codes
+# description: Returns full product information for a given list of product codes
+# consumes:
+#   - "application/json"
+# parameters:
+#   - in: query
+#     name: base
+#     type: string
+#     description: Base currency against which exchanges rate is requested
+#     required: false
+#   - in: query
+#     name: target
+#     type: string
+#     description: Set currency symbol to get specific exchange rate
+#     required: false
+# responses:
+#   200:
+#       description: success
+#       schema:
+#           type: object
+#           properties:
+#               base:
+#                   type: string
+#               date:
+#                   type: string
+#               rates:
+#                   type: array
+#                   items:
+#                       type: object
+#                       properties:
+#                           currency:
+#                               type: string
+#                           exchange rate:
+#                               type: double
+###
 GET     /rates                      controllers.ExchangeRateController.getRates(base: Option[String], target:Option[String])
+
+GET   /docs/swagger.json            controllers.Admin.specs
+
+GET   /docs/swagger-ui/*file        controllers.Assets.at(path:String="/public/lib/swagger-ui", file:String)
