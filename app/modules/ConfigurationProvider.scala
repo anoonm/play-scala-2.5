@@ -4,7 +4,7 @@ import com.google.inject.AbstractModule
 import dao.{SubscriptionMongoDao, SubscriptionDao}
 import play.api.{Environment, Configuration}
 import com.google.inject.name.Names
-import service.{SubscriptionServiceLike, SubscriptionService}
+import unit.service.{SubscriptionServiceLike, SubscriptionService}
 
 /**
  * Created by Anoopriya on 6/12/2017.

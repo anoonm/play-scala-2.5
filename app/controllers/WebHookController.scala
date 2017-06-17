@@ -5,7 +5,7 @@ import models.SubscriptionRequest
 import play.api.Logger
 import play.api.libs.json.{Reads, Writes, JsSuccess, JsError}
 import play.api.mvc.{AnyContent, Request, Action, Controller}
-import service.SubscriptionServiceLike
+import unit.service.SubscriptionServiceLike
 
 import scala.concurrent.Future
 

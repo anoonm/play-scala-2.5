@@ -9,12 +9,17 @@ GET     /                           controllers.HomeController.index
 #   - in: query
 #     name: base
 #     type: string
-#     description: Base currency against which exchanges rate is requested
+#     description: Base currency against which exchanges rate is requested Example- USD
 #     required: false
 #   - in: query
 #     name: target
 #     type: string
-#     description: Set currency symbol to get specific exchange rate
+#     description: Comma separated currency symbol to get specific exchange rate Example- CAD
+#     required: false
+#   - in: query
+#     name: timestamp
+#     type: string
+#     description: Timestamp to return currency rates for the day Example- 2017-06-15T11:34:46Z
 #     required: false
 # responses:
 #   200:
@@ -36,7 +41,7 @@ GET     /                           controllers.HomeController.index
 #                           exchange rate:
 #                               type: double
 ###
-GET     /rates                      controllers.ExchangeRateController.getRates(base: Option[String], target:Option[String])
+GET     /rates                      controllers.ExchangeRateController.getRates(base: Option[String], target:Option[String], timestamp:Option[String])
 
 GET   /docs/swagger.json            controllers.Admin.specs
 

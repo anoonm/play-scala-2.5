@@ -1,4 +1,4 @@
-package service
+package unit.service
 
 import com.google.inject.{Inject, Singleton}
 import dao.SubscriptionDao
