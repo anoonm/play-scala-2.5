@@ -8,4 +8,6 @@ object Constants {
   val MONGO_URI = "mongoUri"
   val DB_NAME = "dbName"
   val DB_COLLECTION = "dbCollection"
+
+  val RATES_NOT_FOUND = "Rates not found. You may check the target or timestamp"
 }

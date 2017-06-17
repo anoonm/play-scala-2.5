@@ -23,7 +23,7 @@ GET     /                           controllers.HomeController.index
 #     required: false
 # responses:
 #   200:
-#       description: success
+#       description: Success
 #       schema:
 #           type: object
 #           properties:
@@ -40,6 +40,10 @@ GET     /                           controllers.HomeController.index
 #                               type: string
 #                           exchange rate:
 #                               type: double
+#   400:
+#       description: Invalid Input
+#       schema:
+#           $ref: '#/definitions/models.Error'
 ###
 GET     /rates                      controllers.ExchangeRateController.getRates(base: Option[String], target:Option[String], timestamp:Option[String])
 

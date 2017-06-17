@@ -5,7 +5,7 @@ import org.scalatestplus.play.{OneAppPerTest, PlaySpec}
 import play.api.http.HttpVerbs
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-
+import constants.Constants.RATES_NOT_FOUND
 
 /**
  * Created by Anoopriya on 6/12/2017.
@@ -43,6 +43,20 @@ class ExchangeRateControllerSpec extends PlaySpec with OneAppPerTest with Mockit
       val ratesResp = route(app, FakeRequest(HttpVerbs.GET, "/rates?timestamp=2017-06-15T17:34:46Z")).get
 
       (contentAsJson(ratesResp) \ "date").as[String] mustBe "2017-06-15"
+    }
+
+    "throw error for a invalid 'base' " in {
+      val ratesResp = route(app, FakeRequest(HttpVerbs.GET, "/rates?base=USDE")).get
+
+      status(ratesResp) mustBe BAD_REQUEST
+      (contentAsJson(ratesResp) \ "error").as[String] mustBe "Invalid base"
+    }
+
+    "throw error for a invalid 'target' " in {
+      val ratesResp = route(app, FakeRequest(HttpVerbs.GET, "/rates?target=EEE")).get
+
+      status(ratesResp) mustBe BAD_REQUEST
+      (contentAsJson(ratesResp) \ "error").as[String] mustBe RATES_NOT_FOUND
     }
   }
 }
