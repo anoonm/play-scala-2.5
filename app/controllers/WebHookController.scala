@@ -1,32 +1,26 @@
 package controllers
 
 import com.google.inject.{Inject, Singleton}
+import helper.ControllerPayload
 import models.SubscriptionRequest
 import play.api.Logger
-import play.api.libs.json.{Reads, Writes, JsSuccess, JsError}
+import play.api.libs.json._
 import play.api.mvc.{AnyContent, Request, Action, Controller}
 import unit.service.SubscriptionServiceLike
 
 import scala.concurrent.Future
 
 @Singleton
-class WebHookController @Inject()(subscriptionService: SubscriptionServiceLike) extends Controller {
+class WebHookController @Inject()(subscriptionService: SubscriptionServiceLike)
+  extends Controller
+  with ControllerPayload{
 
   def createSubscription() = Action{implicit request =>
-    getRequestAsModel[SubscriptionRequest] map{
-      subscriptionService.createSubscription(_)
-    }
-
-   Ok("Subscription created")
+    val subscriptionModel = getRequestAsModel[SubscriptionRequest]
+    Ok(Json.toJson(subscriptionService.createSubscription(subscriptionModel)))
   }
 
-  def getRequestAsModel[T](implicit tjs: Reads  [T], request: Request[AnyContent])  : Option[T] ={
-    request.body.asJson map{
-      json => json.validate[T] match{
-        case JsSuccess(s,_) => s
-        case JsError(e) => Logger.error("Failure to parse payload to create subscription")
-          throw new Exception("Failure to parse payload to create subscription")
-      }
-    }
+  def removeSubscription(user_id:String) = Action{implicit request =>
+    Ok(Json.toJson(subscriptionService.removeSubscription(user_id)))
   }
 }

@@ -53,4 +53,5 @@ GET   /docs/swagger-ui/*file        controllers.Assets.at(path:String="/public/l
 
 GET   /swaggerui                    controllers.Default.redirect(to ="/docs/swagger-ui/index.html?url=/docs/swagger.json" )
 
-POST /api/hooks                     controllers.WebHookController.createSubscription
+POST    /api/hooks                  controllers.WebHookController.createSubscription
+DELETE  /api/hooks/:user_id         controllers.WebHookController.removeSubscription(user_id:String)

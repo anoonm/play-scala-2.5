@@ -10,4 +10,7 @@ object Constants {
   val DB_COLLECTION = "dbCollection"
 
   val RATES_NOT_FOUND = "Rates not found. You may check the target or timestamp"
+
+  val USER_ID = "user_id"
+  val WEBHOOK_URL="webhook_url"
 }
