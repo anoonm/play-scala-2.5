@@ -1,6 +1,6 @@
 package dao
 
-import com.google.inject.Inject
+import com.google.inject.{Singleton, Inject}
 import com.mongodb.casbah.{MongoClient, MongoClientURI, MongoCollection}
 import constants.Constants._
 import play.api.inject.ApplicationLifecycle
@@ -11,6 +11,7 @@ import scala.concurrent.Future
 /**
  * Created by Anoopriya on 6/12/2017.
  */
+@Singleton
 class DbConnector @Inject() (configuration: Configuration, lifecycle: ApplicationLifecycle){
 
   lifecycle.addStopHook {
@@ -22,15 +23,18 @@ class DbConnector @Inject() (configuration: Configuration, lifecycle: Applicatio
   }
 
   val mongoClient = getMongoClient(configuration.getConfig(MONGO_CONFIG).get)
-  val subscriptionCollection: MongoCollection = initMongo
+  val collection = initMongo
+  val subscriptionCollection: MongoCollection = collection._1
+  val exchangeRateCollection: MongoCollection = collection ._2
 
   private def initMongo = {
+    Logger.info("Initializing Mongo")
     val mongoConfig = configuration.getConfig(MONGO_CONFIG).get
     val mongoDB = mongoClient.apply(mongoConfig.getString(DB_NAME).get)
-    mongoDB.apply(mongoConfig.getString(DB_COLLECTION).get)
+    (mongoDB.apply(mongoConfig.getString(SUBSCRIPTION_COLLECTION).get), mongoDB.apply(mongoConfig.getString(EXCHANGERATE_COLLECTION).get))
   }
 
-  protected def getMongoClient(mongoConfig: Configuration): MongoClient = {
+  private def getMongoClient(mongoConfig: Configuration): MongoClient = {
     val mongoClientURI = MongoClientURI(mongoConfig.getString(MONGO_URI).get)
     MongoClient(mongoClientURI)
   }

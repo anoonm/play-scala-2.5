@@ -10,9 +10,10 @@ resolvers += Resolver.jcenterRepo
 
 val playSwagger = "com.iheart" %% "play-swagger" % "0.3.2-PLAY2.5"
 val swaggerUi = "org.webjars" % "swagger-ui" % "2.2.0"
-val casbah = "org.mongodb" %% "casbah" % "2.8.1"
+val casbah = "org.mongodb" %% "casbah" % "3.1.1"
 val jodaTime = "joda-time" % "joda-time" % "2.9.9"
 val mockito = "org.mockito" % "mockito-core" % "1.10.19" % "test"
+val salat = "com.github.salat" %% "salat" % "1.11.0"
 
 libraryDependencies ++= Seq(
   ws,
@@ -21,6 +22,7 @@ libraryDependencies ++= Seq(
   swaggerUi,
   casbah,
   jodaTime,
-  mockito
+  mockito,
+  salat
 )
 

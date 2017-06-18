@@ -9,14 +9,18 @@ import play.api.mvc.{AnyContent, Request}
  */
 trait ControllerPayload {
   def getRequestAsModel[T](implicit tjs: Reads  [T], request: Request[AnyContent]): T ={
-    getRequestBodyAsJson.validate[T] match{
-      case JsSuccess(s,_) => s
-      case JsError(e) =>
-        Logger.error("Failure to parse payload")
-        throw new JsResultException(e)
-    }
+    getModelFromJson(getRequestBodyAsJson)
   }
 
   def getRequestBodyAsJson(implicit request: Request[AnyContent]): JsValue =
     request.body.asJson.getOrElse(throw new IllegalArgumentException("No Json found in payload"))
+
+  def getModelFromJson[T](jsValue: JsValue)(implicit tjs: Reads[T]):T = {
+    jsValue.validate[T] match{
+      case JsSuccess(s,_) => s
+      case JsError(e) =>
+        Logger.error("Failure to validate JSON to required model")
+        throw new JsResultException(e)
+    }
+  }
 }

@@ -2,13 +2,10 @@ package controllers
 
 import com.google.inject.{Inject, Singleton}
 import helper.ControllerPayload
-import models.SubscriptionRequest
-import play.api.Logger
+import models.Subscription
 import play.api.libs.json._
-import play.api.mvc.{AnyContent, Request, Action, Controller}
-import unit.service.SubscriptionServiceLike
-
-import scala.concurrent.Future
+import play.api.mvc.{Action, Controller}
+import service.SubscriptionServiceLike
 
 @Singleton
 class WebHookController @Inject()(subscriptionService: SubscriptionServiceLike)
@@ -16,7 +13,7 @@ class WebHookController @Inject()(subscriptionService: SubscriptionServiceLike)
   with ControllerPayload{
 
   def createSubscription() = Action{implicit request =>
-    val subscriptionModel = getRequestAsModel[SubscriptionRequest]
+    val subscriptionModel = getRequestAsModel[Subscription]
     Ok(Json.toJson(subscriptionService.createSubscription(subscriptionModel)))
   }
 

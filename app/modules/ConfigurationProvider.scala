@@ -1,10 +1,11 @@
 package modules
 
 import com.google.inject.AbstractModule
-import dao.{SubscriptionMongoDao, SubscriptionDao}
+import dao.{ExchangeRateMongoDao, ExchangeRateDao, SubscriptionMongoDao, SubscriptionDao}
 import play.api.{Environment, Configuration}
 import com.google.inject.name.Names
-import unit.service.{SubscriptionServiceLike, SubscriptionService}
+import service.{ExchangeRateService, ExchangeRateServiceLike}
+import service.{SubscriptionServiceLike, SubscriptionService}
 
 /**
  * Created by Anoopriya on 6/12/2017.
@@ -19,5 +20,8 @@ class ConfigurationProvider (
 
     bind(classOf[SubscriptionServiceLike]).to(classOf[SubscriptionService])
     bind(classOf[SubscriptionDao]).to(classOf[SubscriptionMongoDao])
+
+    bind(classOf[ExchangeRateServiceLike]).to(classOf[ExchangeRateService])
+    bind(classOf[ExchangeRateDao]).to(classOf[ExchangeRateMongoDao])
   }
 }
