@@ -17,14 +17,7 @@ trait SubscriptionDao {
 @Singleton
 class SubscriptionMongoDao @Inject()(dbConnector: DbConnector) extends SubscriptionDao {
   def createSubscription(subscriptionRequest: Subscription):Boolean = {
-    def buildMongoDbObject(): DBObject = {
-      val builder = MongoDBObject.newBuilder
-      builder += USER_ID -> subscriptionRequest.user_id
-      builder += WEBHOOK_URL -> subscriptionRequest.webhook_url
-      builder.result
-    }
-
-    dbConnector.subscriptionCollection.insert(buildMongoDbObject).getN >= 0
+    dbConnector.subscriptionCollection.insert(grater[Subscription].asDBObject(subscriptionRequest)).getN >= 0
   }
 
   def removeSubscription(user_id:String):Boolean ={
