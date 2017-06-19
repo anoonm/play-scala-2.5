@@ -1,6 +1,6 @@
 package actors
 
-import akka.actor.Actor
+import akka.actor.{Props, Actor}
 import com.google.inject.Inject
 import models.ExchangeRateResponse
 import play.api.Logger
@@ -11,6 +11,11 @@ import service.{ExchangeRateService, SubscriptionServiceLike}
 /**
  * Created by Anoopriya on 6/17/2017.
  */
+
+object NotifySubscriberActor{
+  def props = Props[NotifySubscriberActor]
+}
+
 class NotifySubscriberActor @Inject()(wsClient:WSClient,
                                       subscriptionService: SubscriptionServiceLike,
                                       exchangeRateService: ExchangeRateService) extends Actor{
