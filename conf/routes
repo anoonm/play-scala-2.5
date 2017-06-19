@@ -1,1 +1,57 @@
 GET     /                           controllers.HomeController.index
+
+###
+# summary: Get product info for a given list of product codes
+# description: Returns full product information for a given list of product codes
+# consumes:
+#   - "application/json"
+# parameters:
+#   - in: query
+#     name: base
+#     type: string
+#     description: Base currency against which exchanges rate is requested Example- USD
+#     required: false
+#   - in: query
+#     name: target
+#     type: string
+#     description: Comma separated currency symbol to get specific exchange rate Example- CAD
+#     required: false
+#   - in: query
+#     name: timestamp
+#     type: string
+#     description: Timestamp to return currency rates for the day Example- 2017-06-15T11:34:46Z
+#     required: false
+# responses:
+#   200:
+#       description: Success
+#       schema:
+#           type: object
+#           properties:
+#               base:
+#                   type: string
+#               date:
+#                   type: string
+#               rates:
+#                   type: array
+#                   items:
+#                       type: object
+#                       properties:
+#                           currency:
+#                               type: string
+#                           exchange rate:
+#                               type: double
+#   400:
+#       description: Invalid Input
+#       schema:
+#           $ref: '#/definitions/models.Error'
+###
+GET     /rates                      controllers.ExchangeRateController.getRates(base: Option[String], target:Option[String], timestamp:Option[String])
+
+GET   /docs/swagger.json            controllers.Admin.specs
+
+GET   /docs/swagger-ui/*file        controllers.Assets.at(path:String="/public/lib/swagger-ui", file:String)
+
+GET   /swaggerui                    controllers.Default.redirect(to ="/docs/swagger-ui/index.html?url=/docs/swagger.json" )
+
+POST    /api/hooks                  controllers.WebHookController.createSubscription
+DELETE  /api/hooks/:user_id         controllers.WebHookController.removeSubscription(user_id:String)
